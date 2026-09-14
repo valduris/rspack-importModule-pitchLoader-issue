@@ -2,7 +2,7 @@
   "name": "rspack-importmodule-pitchloader-issue",
   "version": "1.0.0",
   "private": true,
-  "description": "Minimal repro: this.importModule() + a pitch loader targeting a type: \"asset\" module resolves to the pitch loader's own generated source under rspack instead of the real target's content - only under rspack, not webpack",
+  "description": "Minimal repro: this.importModule() + a pitch loader on a type: \"asset\" module resolves to the pitch loader's own source under rspack, not the real target's content",
   "type": "module",
   "scripts": {
     "repro": "node build.mjs"

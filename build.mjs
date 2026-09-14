@@ -1,7 +1,5 @@
-// Minimal repro: this.importModule() combined with a pitch loader, targeting a module handled by
-// type: "asset" (webpack/rspack's auto inline-vs-resource asset type), resolves to the pitch
-// loader's own generated JS source text under rspack instead of the real target file's content -
-// with webpack but not with rspack.
+// this.importModule() + a pitch loader, on a type: "asset" module, resolves to the pitch
+// loader's own source text under rspack instead of the target file's content - not with webpack.
 
 // Usage: npm install && node build.mjs
 import * as fs from "node:fs";
@@ -14,9 +12,8 @@ import { rspack } from "@rspack/core";
 const dir = path.dirname(fileURLToPath(import.meta.url));
 const realContent = fs.readFileSync(path.join(dir, "src/target.txt"), "utf-8");
 
-// type: "asset" (not "asset/resource") triggers the bug - it's webpack/rspack's auto
-// inline-vs-resource asset type, decided by parser.dataUrlCondition.maxSize. src/target.txt is
-// 2001 bytes, well over maxSize, so it must resolve to a real resource file, never be inlined.
+// type: "asset" auto-decides inline vs. resource via maxSize. target.txt is 2001 bytes, well
+// over it, so it must resolve to a resource file - never inlined.
 const config = (outDir) => ({
     mode: "production",
     devtool: false,

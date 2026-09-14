@@ -1,6 +1,5 @@
-// A loader that resolves another module's real asset URL via this.importModule() + a pitch
-// loader (pitch-loader.cjs), then exposes the resolved value as a global for the test harness
-// to read after evaluating the bundle.
+// Resolves target.txt's URL via this.importModule() + pitch-loader.cjs, exposing it as a global
+// for the test harness to read.
 const path = require("node:path");
 
 module.exports = function parentLoader() {
